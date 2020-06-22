@@ -1,7 +1,6 @@
 package config
 
 import (
-	"context"
 	"fmt"
 
 	template "github.com/oxssy/service-template"
@@ -30,7 +29,7 @@ func (c *RedisConfig) Connect() (*redis.Client, error) {
 		Password: c.Password,
 		DB:       c.DbNumber,
 	})
-	_, err := client.Ping(context.Background()).Result()
+	_, err := client.Ping().Result()
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to connect to redis")
 	}

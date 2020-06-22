@@ -24,6 +24,12 @@ type gRPCService struct {
 	listener   net.Listener
 }
 
+func (svc *gRPCService) Setup(cm template.ConfigMap) {
+	svc.grpcConfig = &config.NetConfig{}
+	cm.Set("grpc", svc.grpcConfig)
+	svc.GRPCImplementation.Setup(cm)
+}
+
 func (svc *gRPCService) OnReady() error {
 	err := svc.GRPCImplementation.OnReady()
 	if err != nil {
@@ -47,11 +53,5 @@ func (svc *gRPCService) OnClose() error {
 }
 
 func NewGRPCService(impl GRPCImplementation) *template.Service {
-	grpcConf := &config.NetConfig{}
-	srv := template.NewService(&gRPCService{
-		GRPCImplementation: impl,
-		grpcConfig:         grpcConf,
-	})
-	srv.GetConfig().Set("grpc", grpcConf)
-	return srv
+	return template.NewService(&gRPCService{GRPCImplementation: impl})
 }

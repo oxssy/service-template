@@ -21,6 +21,12 @@ type httpService struct {
 	listener   net.Listener
 }
 
+func (svc *httpService) Setup(cm template.ConfigMap) {
+	svc.httpConfig = &config.NetConfig{}
+	cm.Set("http", svc.httpConfig)
+	svc.HTTPImplementation.Setup(cm)
+}
+
 func (svc *httpService) OnReady() error {
 	err := svc.HTTPImplementation.OnReady()
 	if err != nil {
@@ -37,11 +43,5 @@ func (svc *httpService) OnReady() error {
 }
 
 func NewHTTPService(impl HTTPImplementation) *template.Service {
-	httpConf := &config.NetConfig{}
-	srv := template.NewService(&httpService{
-		HTTPImplementation: impl,
-		httpConfig:         httpConf,
-	})
-	srv.GetConfig().Set("http", httpConf)
-	return srv
+	return template.NewService(&httpService{HTTPImplementation: impl})
 }

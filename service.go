@@ -2,8 +2,12 @@ package template
 
 // Implementation contains all method a service must implement.
 type Implementation interface {
+	// Setup is called at the beginning of the service life cycle.
+	// Typically, your service Implementation should add necessary configurations to the ConfigMap.
+	Setup(config ConfigMap)
+
 	// OnConfig is called when the ConfigMap is loaded from the environment.
-	// Typically, your service Implementation can use the loaded configruations to set itself up.
+	// Typically, your service Implementation can use the loaded configurations to set itself up.
 	OnConfig(config ConfigMap) error
 
 	// OnConnect is called when the Connection object makes all its connections to data stores.
@@ -74,6 +78,7 @@ func (svc *Service) Close() error {
 }
 
 func (svc *Service) initalize() error {
+	svc.Setup((svc.config))
 	err := svc.config.Load()
 	if err != nil {
 		return err
