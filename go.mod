@@ -1,4 +1,4 @@
-module service-template
+module github.com/oxssy/service-template
 
 go 1.13
 
