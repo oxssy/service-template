@@ -4,8 +4,9 @@ import (
 	"io/ioutil"
 	"net"
 	"os"
-	template "service-template"
-	"service-template/config"
+
+	template "github.com/oxssy/service-template"
+	"github.com/oxssy/service-template/config"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/grpclog"

@@ -3,7 +3,8 @@ package config
 import (
 	"context"
 	"fmt"
-	template "service-template"
+
+	template "github.com/oxssy/service-template"
 
 	"github.com/go-redis/redis"
 	"github.com/pkg/errors"

@@ -3,7 +3,8 @@ package config
 import (
 	"database/sql"
 	"fmt"
-	template "service-template"
+
+	template "github.com/oxssy/service-template"
 
 	_ "github.com/lib/pq" // Postgres sql driver
 	"github.com/pkg/errors"

@@ -3,8 +3,9 @@ package service
 import (
 	"net"
 	"net/http"
-	template "service-template"
-	"service-template/config"
+
+	template "github.com/oxssy/service-template"
+	"github.com/oxssy/service-template/config"
 
 	"github.com/gorilla/mux"
 )

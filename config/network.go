@@ -3,7 +3,8 @@ package config
 import (
 	"fmt"
 	"net"
-	template "service-template"
+
+	template "github.com/oxssy/service-template"
 )
 
 // NetConfig contains the host and port parameters for a network listener.
