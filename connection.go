@@ -1,15 +1,16 @@
 package template
 
 import (
-	"database/sql"
 	"fmt"
+
+	"github.com/jmoiron/sqlx"
 
 	"github.com/go-redis/redis"
 	"github.com/pkg/errors"
 )
 
 type redisConns map[string]*redis.Client
-type sqlConns map[string]*sql.DB
+type sqlConns map[string]*sqlx.DB
 
 // Connection is a map to all data store connections used by a service.
 type Connection struct {
@@ -33,7 +34,7 @@ func (sc *Connection) GetRedis(namespace string) *redis.Client {
 }
 
 // GetSQL returns a SQL connection specified by the namespace.
-func (sc *Connection) GetSQL(namespace string) *sql.DB {
+func (sc *Connection) GetSQL(namespace string) *sqlx.DB {
 	return sc.sql[namespace]
 }
 

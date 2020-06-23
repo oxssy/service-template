@@ -1,10 +1,10 @@
 package template
 
 import (
-	"database/sql"
 	"fmt"
 
 	"github.com/go-redis/redis"
+	"github.com/jmoiron/sqlx"
 	"github.com/kelseyhightower/envconfig"
 )
 
@@ -29,7 +29,7 @@ type RedisConnector interface {
 
 // SQLConnector is an interface for all SQL type configs, such as MySQLConfig.
 type SQLConnector interface {
-	Connect() (*sql.DB, error)
+	Connect() (*sqlx.DB, error)
 }
 
 // A Config is typically a struct containing the config values.

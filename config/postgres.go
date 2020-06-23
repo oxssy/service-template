@@ -1,9 +1,9 @@
 package config
 
 import (
-	"database/sql"
 	"fmt"
 
+	"github.com/jmoiron/sqlx"
 	template "github.com/oxssy/service-template"
 
 	_ "github.com/lib/pq" // Postgres sql driver
@@ -25,12 +25,12 @@ func (c *PostgresConfig) ConfigType() template.ConfigTypeValue {
 }
 
 // Connect makes a SQL connection to the Postgres database.
-func (c *PostgresConfig) Connect() (*sql.DB, error) {
+func (c *PostgresConfig) Connect() (*sqlx.DB, error) {
 	connPath := fmt.Sprintf(
 		"host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
 		c.Host, c.Port, c.User, c.Password, c.DbName,
 	)
-	db, err := sql.Open("postgres", connPath)
+	db, err := sqlx.Open("postgres", connPath)
 	if err == nil {
 		err = db.Ping()
 	}

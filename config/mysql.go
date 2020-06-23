@@ -1,9 +1,9 @@
 package config
 
 import (
-	"database/sql"
 	"fmt"
 
+	"github.com/jmoiron/sqlx"
 	template "github.com/oxssy/service-template"
 
 	_ "github.com/go-sql-driver/mysql" // mysql driver import
@@ -25,9 +25,9 @@ func (c *MySQLConfig) ConfigType() template.ConfigTypeValue {
 }
 
 // Connect makes a SQL connection to the MySQL database.
-func (c *MySQLConfig) Connect() (*sql.DB, error) {
+func (c *MySQLConfig) Connect() (*sqlx.DB, error) {
 	connPath := fmt.Sprintf("%v:%v@tcp4(%v:%v)/%v?parseTime=true", c.User, c.Password, c.Host, c.Port, c.DbName)
-	db, err := sql.Open("mysql", connPath)
+	db, err := sqlx.Open("mysql", connPath)
 	if err == nil {
 		err = db.Ping()
 	}
