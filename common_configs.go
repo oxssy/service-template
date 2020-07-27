@@ -1,10 +1,11 @@
 package template
 
 import (
+	"context"
 	"fmt"
 	"net"
 
-	"github.com/go-redis/redis"
+	"github.com/go-redis/redis/v8"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
 )
@@ -108,7 +109,7 @@ func (c *RedisConfig) Connect() (*redis.Client, error) {
 		Password: c.Password,
 		DB:       c.DbNumber,
 	})
-	_, err := client.Ping().Result()
+	_, err := client.Ping(context.Background()).Result()
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to connect to redis")
 	}
