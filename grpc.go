@@ -1,12 +1,9 @@
-package service
+package template
 
 import (
 	"io/ioutil"
 	"net"
 	"os"
-
-	template "github.com/oxssy/service-template"
-	"github.com/oxssy/service-template/config"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/grpclog"
@@ -14,18 +11,18 @@ import (
 )
 
 type GRPCImplementation interface {
-	template.Implementation
+	Implementation
 	Register(srv *grpc.Server)
 }
 
 type gRPCService struct {
 	GRPCImplementation
-	grpcConfig *config.NetConfig
+	grpcConfig *NetConfig
 	listener   net.Listener
 }
 
-func (svc *gRPCService) Setup(cm template.ConfigMap) {
-	svc.grpcConfig = &config.NetConfig{}
+func (svc *gRPCService) Setup(cm ConfigMap) {
+	svc.grpcConfig = &NetConfig{}
 	cm.Set("grpc", svc.grpcConfig)
 	svc.GRPCImplementation.Setup(cm)
 }
@@ -52,6 +49,6 @@ func (svc *gRPCService) OnClose() error {
 	return svc.GRPCImplementation.OnClose()
 }
 
-func NewGRPCService(impl GRPCImplementation) *template.Service {
-	return template.NewService(&gRPCService{GRPCImplementation: impl})
+func NewGRPCService(impl GRPCImplementation) *Service {
+	return NewService(&gRPCService{GRPCImplementation: impl})
 }

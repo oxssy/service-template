@@ -1,28 +1,25 @@
-package service
+package template
 
 import (
 	"net"
 	"net/http"
 
-	template "github.com/oxssy/service-template"
-	"github.com/oxssy/service-template/config"
-
 	"github.com/gorilla/mux"
 )
 
 type HTTPImplementation interface {
-	template.Implementation
+	Implementation
 	Routes(router *mux.Router)
 }
 
 type httpService struct {
 	HTTPImplementation
-	httpConfig *config.NetConfig
+	httpConfig *NetConfig
 	listener   net.Listener
 }
 
-func (svc *httpService) Setup(cm template.ConfigMap) {
-	svc.httpConfig = &config.NetConfig{}
+func (svc *httpService) Setup(cm ConfigMap) {
+	svc.httpConfig = &NetConfig{}
 	cm.Set("http", svc.httpConfig)
 	svc.HTTPImplementation.Setup(cm)
 }
@@ -42,6 +39,6 @@ func (svc *httpService) OnReady() error {
 	return http.Serve(svc.listener, router)
 }
 
-func NewHTTPService(impl HTTPImplementation) *template.Service {
-	return template.NewService(&httpService{HTTPImplementation: impl})
+func NewHTTPService(impl HTTPImplementation) *Service {
+	return NewService(&httpService{HTTPImplementation: impl})
 }
