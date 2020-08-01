@@ -5,9 +5,14 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/go-redis/redis/v8"
+	redis "github.com/go-redis/redis/v8"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
+
+	// MySQL driver
+	_ "github.com/go-sql-driver/mysql"
+	// Postgres driver
+	_ "github.com/lib/pq"
 )
 
 // MySQLConfig contains parameters necessary to connect to a MySQL database.
