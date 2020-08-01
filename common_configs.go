@@ -21,7 +21,7 @@ type MySQLConfig struct {
 	Port     int    `default:"3306"`
 	User     string `required:"true"`
 	Password string `required:"true"`
-	DbName   string `required:"true"`
+	DbName   string `envconfig:"DB_NAME" required:"true"`
 }
 
 // ConfigType of MySQLConfig is SQL.
@@ -70,7 +70,7 @@ type PostgresConfig struct {
 	Port     int    `default:"3306"`
 	User     string `required:"true"`
 	Password string `required:"true"`
-	DbName   string `required:"true"`
+	DbName   string `envconfig:"DB_NAME" required:"true"`
 }
 
 // ConfigType of PostgresConfig is SQL.
@@ -99,7 +99,7 @@ type RedisConfig struct {
 	Host     string `default:"0.0.0.0"`
 	Port     string `default:"6379"`
 	Password string
-	DbNumber int
+	DbNumber int `envconfig:"DB_NUMBER"`
 }
 
 // ConfigType of RedisConfig is REDIS.

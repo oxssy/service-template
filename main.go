@@ -12,6 +12,7 @@ import (
 	"google.golang.org/grpc/reflection"
 )
 
+// StartGRPCService runs a given GRPCService.
 func StartGRPCService(svc GRPCService) error {
 	config, conn := makeConnection()
 	grpcConf := &NetConfig{}
@@ -41,6 +42,7 @@ func StartGRPCService(svc GRPCService) error {
 	return grpcs.Serve(listener)
 }
 
+// StartHTTPService runs a given HTTPService.
 func StartHTTPService(svc HTTPService) error {
 	config, conn := makeConnection()
 	httpConf := &NetConfig{}
